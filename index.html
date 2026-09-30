@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CarePlus Hospital</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      color: #333;
+      background: #f7fbff;
+      line-height: 1.6;
+    }
+
+    /* Navbar */
+    header {
+      background: #0b7fab;
+      color: white;
+      padding: 15px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .logo span {
+      color: #a7e8ff;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      color: #a7e8ff;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      padding: 60px 7%;
+      background: linear-gradient(
+          rgba(0, 120, 170, 0.85),
+          rgba(0, 120, 170, 0.85)
+        ),
+        url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1600&q=80")
+        center/cover;
+      color: white;
+    }
+
+    .hero-content {
+      max-width: 650px;
+    }
+
+    .hero h1 {
+      font-size: 50px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #ff6b35;
+      color: white;
+      padding: 13px 25px;
+      border-radius: 5px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #e65320;
+      transform: translateY(-2px);
+    }
+
+    /* General Section */
+    section {
+      padding: 70px 7%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-title h2 {
+      color: #087ca7;
+      font-size: 35px;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: #666;
+    }
+
+    /* About */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .about-text h3 {
+      color: #087ca7;
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    .about-text p {
+      margin-bottom: 15px;
+      color: #555;
+    }
+
+    /* Departments */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 25px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+    }
+
+    .card .icon {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      color: #087ca7;
+      margin-bottom: 10px;
+    }
+
+    /* Doctors */
+    .doctor-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .doctor {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+
+    .doctor img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .doctor-info {
+      padding: 20px;
+    }
+
+    .doctor-info h3 {
+      color: #087ca7;
+    }
+
+    .doctor-info p {
+      color: #666;
+      margin: 5px 0;
+    }
+
+    /* Services */
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .service {
+      background: #e9f8ff;
+      padding: 25px;
+      border-left: 5px solid #0b7fab;
+      border-radius: 5px;
+    }
+
+    .service h3 {
+      color: #087ca7;
+      margin-bottom: 8px;
+    }
+
+    /* Appointment */
+    .appointment-section {
+      background: #eaf8fc;
+    }
+
+    .appointment-form {
+      max-width: 850px;
+      margin: auto;
+      background: white;
+      padding: 35px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #0b7fab;
+    }
+
+    textarea {
+      height: 110px;
+      resize: vertical;
+    }
+
+    .error {
+      color: #e63946;
+      font-size: 13px;
+      margin-top: 5px;
+      display: block;
+    }
+
+    .success {
+      color: #16803c;
+      background: #e5f8ec;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      display: none;
+    }
+
+    /* Contact */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .contact-info {
+      background: #087ca7;
+      color: white;
+      padding: 35px;
+      border-radius: 10px;
+    }
+
+    .contact-info h3 {
+      margin-bottom: 20px;
+      font-size: 25px;
+    }
+
+    .contact-item {
+      margin-bottom: 20px;
+    }
+
+    .contact-item strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .map {
+      width: 100%;
+      min-height: 350px;
+      background: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      color: #666;
+    }
+
+    /* Footer */
+    footer {
+      background: #064b65;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .doctor-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .service-list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .hero h1 {
+        font-size: 38px;
+      }
+
+      .about,
+      .contact-container {
+        grid-template-columns: 1fr;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .doctor-grid,
+      .service-list,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      section {
+        padding: 50px 5%;
+      }
+
+      .hero {
+        padding: 50px 5%;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .appointment-form {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <header>
+    <div class="logo">Care<span>Plus</span> Hospital</div>
+
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#departments">Departments</a></li>
+        <li><a href="#doctors">Doctors</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#appointment">Appointment</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <!-- Home -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Your Health, Our Priority</h1>
+      <p>
+        Welcome to CarePlus Hospital. We provide trusted medical care,
+        advanced treatment, and compassionate service for you and your family.
+      </p>
+
+      <a href="#appointment" class="btn">Book Appointment</a>
+    </div>
+  </section>
+
+
+  <!-- About -->
+  <section id="about">
+    <div class="section-title">
+      <h2>About Our Hospital</h2>
+      <p>Quality healthcare with compassion and technology.</p>
+    </div>
+
+    <div class="about">
+      <img
+        src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=900&q=80"
+        alt="Hospital"
+      >
+
+      <div class="about-text">
+        <h3>Advanced Healthcare for Everyone</h3>
+
+        <p>
+          CarePlus Hospital is a modern healthcare facility dedicated to
+          providing high-quality medical treatment and patient care.
+        </p>
+
+        <p>
+          Our experienced doctors, nurses, and healthcare professionals work
+          together to provide personalized treatment using modern medical
+          technology.
+        </p>
+
+        <p>
+          We are committed to patient safety, comfort, and excellent healthcare
+          services.
+        </p>
+
+        <a href="#contact" class="btn">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Departments -->
+  <section id="departments">
+    <div class="section-title">
+      <h2>Our Departments</h2>
+      <p>Specialized medical departments for your healthcare needs.</p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="icon">❤️</div>
+        <h3>Cardiology</h3>
+        <p>Heart care, diagnosis and treatment by experienced specialists.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🧠</div>
+        <h3>Neurology</h3>
+        <p>Advanced diagnosis and treatment for neurological conditions.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">🦴</div>
+        <h3>Orthopedics</h3>
+        <p>Complete care for bones, joints, muscles and movement.</p>
+      </div>
+
+      <div class="card">
+        <div class="icon">👶</div>
+        <h3>Pediatrics</h3>
+        <p>Specialized healthcare services for children and infants.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Doctors -->
+  <section id="doctors">
+    <div class="section-title">
+      <h2>Our Doctors</h2>
+      <p>Meet our experienced healthcare professionals.</p>
+    </div>
+
+    <div class="doctor-grid">
+
+      <div class="doctor">
+        <img
+          src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=600&q=80"
+          alt="Doctor"
+        >
+
+        <div class="doctor-info">
+          <h3>Dr. Ayan khan</h3>
+          <p><strong>Cardiologist</strong></p>
+          <p>15+ years of experience</p>
+          <p>MBBS, MD, Cardiology</p>
+        </div>
+      </div>
+
+
+      <div class="doctor">
+        <img
+          src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=600&q=80"
+          alt="Doctor"
+        >
+
+        <div class="doctor-info">
+          <h3>Dr. om walunj</h3>
+          <p><strong>Neurologist</strong></p>
+          <p>12+ years of experience</p>
+          <p>MBBS, MD, Neurology</p>
+        </div>
+      </div>
+
+
+      <div class="doctor">
+        <img
+          src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=600&q=80"
+          alt="Doctor"
+        >
+
+        <div class="doctor-info">
+          <h3>Dr. aniket shinde</h3>
+          <p><strong>Orthopedic Surgeon</strong></p>
+          <p>18+ years of experience</p>
+          <p>MBBS, MS, Orthopedics</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Services -->
+  <section id="services">
+    <div class="section-title">
+      <h2>Our Services</h2>
+      <p>Healthcare services available at CarePlus Hospital.</p>
+    </div>
+
+    <div class="service-list">
+
+      <div class="service">
+        <h3>Emergency Care</h3>
+        <p>
+          24/7 emergency medical services for urgent healthcare needs.
+        </p>
+      </div>
+
+      <div class="service">
+        <h3>Diagnostic Services</h3>
+        <p>
+          Laboratory tests and diagnostic services using modern equipment.
+        </p>
+      </div>
+
+      <div class="service">
+        <h3>Pharmacy</h3>
+        <p>
+          Convenient access to prescribed medicines and pharmaceutical care.
+        </p>
+      </div>
+
+      <div class="service">
+        <h3>ICU</h3>
+        <p>
+          Specialized intensive care with continuous patient monitoring.
+        </p>
+      </div>
+
+      <div class="service">
+        <h3>Ambulance</h3>
+        <p>
+          Emergency ambulance support for patients requiring transportation.
+        </p>
+      </div>
+
+      <div class="service">
+        <h3>Health Checkup</h3>
+        <p>
+          Comprehensive health checkup packages for preventive healthcare.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Appointment -->
+  <section class="appointment-section" id="appointment">
+
+    <div class="section-title">
+      <h2>Book an Appointment</h2>
+      <p>Fill out the form and our team will contact you.</p>
+    </div>
+
+    <form class="appointment-form" id="appointmentForm">
+
+      <div id="successMessage" class="success">
+        Appointment request submitted successfully!
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="name">Full Name *</label>
+          <input
+            type="text"
+            id="name"
+            placeholder="Enter your full name"
+          >
+          <span class="error" id="nameError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+          >
+          <span class="error" id="emailError"></span>
+        </div>
+
+      </div>
+
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input
+            type="tel"
+            id="phone"
+            placeholder="10-digit phone number"
+          >
+          <span class="error" id="phoneError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="department">Department *</label>
+
+          <select id="department">
+            <option value="">Select Department</option>
+            <option value="Cardiology">Cardiology</option>
+            <option value="Neurology">Neurology</option>
+            <option value="Orthopedics">Orthopedics</option>
+            <option value="Pediatrics">Pediatrics</option>
+          </select>
+
+          <span class="error" id="departmentError"></span>
+        </div>
+
+      </div>
+
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="doctor">Preferred Doctor *</label>
+
+          <select id="doctor">
+            <option value="">Select Doctor</option>
+            <option value="Dr. Ayan khan">Dr. Ayan khan</option>
+            <option value="Dr. om walunj">Dr. Aniket shinde</option>
+            <option value="Dr. aniket shinde">Dr. om walunj</option>
+          </select>
+
+          <span class="error" id="doctorError"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Appointment Date *</label>
+          <input type="date" id="date">
+          <span class="error" id="dateError"></span>
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+        <label for="message">Message</label>
+
+        <textarea
+          id="message"
+          placeholder="Describe your problem (optional)"
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn">
+        Book Appointment
+      </button>
+
+    </form>
+  </section>
+
+
+  <!-- Contact -->
+  <section id="contact">
+
+    <div class="section-title">
+      <h2>Contact Us</h2>
+      <p>We are here to help you.</p>
+    </div>
+
+    <div class="contact-container">
+
+      <div class="contact-info">
+
+        <h3>Get In Touch</h3>
+
+        <div class="contact-item">
+          <strong>📍 Address</strong>
+          123 Healthcare Avenue, Pune, Maharashtra
+        </div>
+
+        <div class="contact-item">
+          <strong>📞 Phone</strong>
+          +91 98765 43210
+        </div>
+
+        <div class="contact-item">
+          <strong>✉️ Email</strong>
+          info@careplushospital.com
+        </div>
+
+        <div class="contact-item">
+          <strong>🕒 Working Hours</strong>
+          Monday - Sunday: 24 Hours
+        </div>
+
+      </div>
+
+
+      <div class="map">
+        <h3>Hospital Location</h3>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Footer -->
+  <footer>
+    <p>
+      &copy; 2026 CarePlus Hospital. All Rights Reserved.
+    </p>
+  </footer>
+
+
+  <!-- JavaScript -->
+  <script>
+
+    const form = document.getElementById("appointmentForm");
+
+    form.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      // Get values
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const department = document.getElementById("department").value;
+      const doctor = document.getElementById("doctor").value;
+      const date = document.getElementById("date").value;
+
+      // Error elements
+      const nameError = document.getElementById("nameError");
+      const emailError = document.getElementById("emailError");
+      const phoneError = document.getElementById("phoneError");
+      const departmentError = document.getElementById("departmentError");
+      const doctorError = document.getElementById("doctorError");
+      const dateError = document.getElementById("dateError");
+
+      // Clear previous errors
+      nameError.textContent = "";
+      emailError.textContent = "";
+      phoneError.textContent = "";
+      departmentError.textContent = "";
+      doctorError.textContent = "";
+      dateError.textContent = "";
+
+      document.getElementById("successMessage").style.display = "none";
+
+      let valid = true;
+
+      // Name validation
+      if (name === "") {
+        nameError.textContent = "Please enter your name.";
+        valid = false;
+      } 
+      else if (name.length < 3) {
+        nameError.textContent = "Name must contain at least 3 characters.";
+        valid = false;
+      }
+
+      // Email validation
+      const emailPattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (email === "") {
+        emailError.textContent = "Please enter your email.";
+        valid = false;
+      } 
+      else if (!emailPattern.test(email)) {
+        emailError.textContent = "Please enter a valid email address.";
+        valid = false;
+      }
+
+      // Phone validation
+      const phonePattern = /^[0-9]{10}$/;
+
+      if (phone === "") {
+        phoneError.textContent = "Please enter your phone number.";
+        valid = false;
+      } 
+      else if (!phonePattern.test(phone)) {
+        phoneError.textContent =
+          "Phone number must contain exactly 10 digits.";
+        valid = false;
+      }
+
+      // Department validation
+      if (department === "") {
+        departmentError.textContent =
+          "Please select a department.";
+        valid = false;
+      }
+
+      // Doctor validation
+      if (doctor === "") {
+        doctorError.textContent =
+          "Please select a doctor.";
+        valid = false;
+      }
+
+      // Date validation
+      if (date === "") {
+        dateError.textContent =
+          "Please select an appointment date.";
+        valid = false;
+      } 
+      else {
+        const selectedDate = new Date(date);
+        const today = new Date();
+
+        today.setHours(0, 0, 0, 0);
+
+        if (selectedDate < today) {
+          dateError.textContent =
+            "Appointment date cannot be in the past.";
+          valid = false;
+        }
+      }
+
+      // If everything is valid
+      if (valid) {
+
+        document.getElementById("successMessage").style.display = "block";
+
+        // Reset form
+        form.reset();
+
+        // Scroll to success message
+        document.getElementById("successMessage")
+          .scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+      }
+
+    });
+
+
+    // Prevent selecting past dates
+    const dateInput = document.getElementById("date");
+
+    const today = new Date();
+
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
+
+    dateInput.min = `${year}-${month}-${day}`;
+
+  </script>
+
+</body>
+</html>
